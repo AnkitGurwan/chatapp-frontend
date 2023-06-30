@@ -9,7 +9,8 @@ import AuthContext from '../context/AuthContext';
 import Robot from '../assets/robot.gif';
 import { io } from "socket.io-client";
 import { setAllChats } from '../state';
-import './styles.css'
+import './styles.css';
+// require('dotenv').config()
 
 
 const ChatContainer = () => {
@@ -42,7 +43,7 @@ const ChatContainer = () => {
     },[]);
 
     useEffect(() => {
-        const host = 'http://localhost:5000';
+        const host = process.env.REACT_APP_HOST;
         if (currentUser) {
           socket.current = io(host);
           socket.current.emit("add-user", localStorage.getItem('_id'));
@@ -110,8 +111,6 @@ const ChatContainer = () => {
     }
 
     
-
-
   return (
     <div>
         <div className='text-white w-full h-full'>
