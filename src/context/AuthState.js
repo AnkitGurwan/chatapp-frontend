@@ -8,8 +8,6 @@ const AuthState = (props) => {
 
     const url = "https://chatapp-xxrn.onrender.com";
     const dispatch = useDispatch();
-    const [specificPosts,setSpecificPosts]=useState([]);
-    const [specificDetails,setSpecificDetails]=useState([]);
 
 
     const loginUser = async ( userName , password) => {
@@ -21,7 +19,6 @@ const AuthState = (props) => {
             body:JSON.stringify({userName,password})
         });
         const json = await response.json();
-        console.log("jsonn",json)
         if(json.user)
         {
             localStorage.setItem("isAvatarSet",json.user.isAvatarSet);
@@ -42,7 +39,6 @@ const AuthState = (props) => {
         });
         const json = await response.json();
         dispatch(setLogin(json));
-        console.log(json)
         if(json.user)
         {
             localStorage.setItem("isAvatarSet",json.user.isAvatarSet);
@@ -74,7 +70,6 @@ const AuthState = (props) => {
         });
 
         const json = await response.json();
-        console.log("j",json)
         dispatch(setAllUsers(json));
         
         return response.status;
@@ -89,7 +84,6 @@ const AuthState = (props) => {
         });
 
         const json = await response.json();
-        console.log("jj",json)
         dispatch(setOwner(json));
         
         return response.status;
@@ -105,13 +99,11 @@ const AuthState = (props) => {
         });
 
         const json = await response.json();
-        console.log("jj",json);
         
         return response.status;
     }
 
     const getMessages = async (from,to) => {
-        console.log("a")
         const response = await fetch (`${url}/chat/getmsg`,{
             method:"POST",
             headers:{
@@ -119,9 +111,7 @@ const AuthState = (props) => {
             },
             body:JSON.stringify({ from , to})
         });
-        console.log("b")
         const json = await response.json();   
-        console.log("json",json)
         dispatch(setAllChats(json));     
         return response.status;
     }

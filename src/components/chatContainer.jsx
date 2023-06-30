@@ -10,9 +10,6 @@ import Robot from '../assets/robot.gif';
 import { io } from "socket.io-client";
 import { setAllChats, setLogout } from '../state';
 import './styles.css';
-import Spinner from './Spinner';
-
-// require('dotenv').config()
 
 const ChatContainer = () => {
     const { addMessage , getMessages } = useContext(AuthContext);
@@ -21,7 +18,6 @@ const ChatContainer = () => {
     const allChats = useSelector((state) => state.user.allChats);
     const Navigate = useNavigate();
     const [showEmojis, setShowEmojis] = useState(false);
-    // const [loading, setLoading] = useState(true);
     const [currentUser, setCurrentUser] = useState(false);
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [chat, setChat] = useState('');
@@ -32,12 +28,10 @@ const ChatContainer = () => {
         setChat(event.target.value);
       }
    
-
     const getItem = async () =>{
         if(friend)
         {
           await getMessages(localStorage.getItem('_id'),friend._id);
-          // if(x === 200)setLoading(false);
         }   
     }
 
@@ -172,4 +166,4 @@ const ChatContainer = () => {
   )
 }
 
-export default ChatContainer
+export default ChatContainer;

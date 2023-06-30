@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext , useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from "../context/AuthContext";
 import { toast } from 'react-toastify';
@@ -85,4 +85,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Register;

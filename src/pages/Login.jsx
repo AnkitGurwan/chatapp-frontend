@@ -12,7 +12,6 @@ const Register = () => {
   const Navigate = useNavigate();
   const [effect, setEffect] = useState(false);
   
-  const userCred = useSelector((state) => state);
   const [user, setUser] = useState({
     userName: "",
     password: ""
@@ -23,7 +22,6 @@ const Register = () => {
   }
 
   const loginSubmitHandler = async (event) => {
-    console.log("kk",userCred)
     setEffect(true);
     event.preventDefault();
     const x = await loginUser(_(user.userName),user.password);
