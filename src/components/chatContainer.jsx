@@ -10,6 +10,8 @@ import Robot from '../assets/robot.gif';
 import { io } from "socket.io-client";
 import { setAllChats } from '../state';
 import './styles.css';
+import Spinner from './Spinner';
+
 // require('dotenv').config()
 
 
@@ -20,6 +22,7 @@ const ChatContainer = () => {
     const allChats = useSelector((state) => state.user.allChats);
     const Navigate = useNavigate();
     const [showEmojis, setShowEmojis] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [currentUser, setCurrentUser] = useState(false);
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [chat, setChat] = useState('');
@@ -33,7 +36,10 @@ const ChatContainer = () => {
 
     const getItem = async () =>{
         if(friend)
-        await getMessages(localStorage.getItem('_id'),friend._id);
+        {
+          const x = await getMessages(localStorage.getItem('_id'),friend._id);
+          if(x === 200)setLoading(false);
+        }
         
     }
 
@@ -131,6 +137,8 @@ const ChatContainer = () => {
             
             <div className={" " + (friend?"container":"h-96 overflow-y-hidden mt-16")}>
                 {allChats && friend? 
+                loading?<div className='w-full h-96 flex justify-center items-center'><Spinner/></div>
+                :
                 allChats.map((chatInd,index)=>
                 chatInd.fromSelf
                 ?
