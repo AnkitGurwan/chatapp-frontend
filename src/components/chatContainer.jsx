@@ -8,12 +8,11 @@ import EmojiPicker from 'emoji-picker-react';
 import AuthContext from '../context/AuthContext';
 import Robot from '../assets/robot.gif';
 import { io } from "socket.io-client";
-import { setAllChats } from '../state';
+import { setAllChats, setLogout } from '../state';
 import './styles.css';
 import Spinner from './Spinner';
 
 // require('dotenv').config()
-
 
 const ChatContainer = () => {
     const { addMessage , getMessages } = useContext(AuthContext);
