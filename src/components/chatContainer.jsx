@@ -83,6 +83,7 @@ const ChatContainer = () => {
     const logOutHandler = async (event) => {
         event.preventDefault();
         localStorage.clear('isAvatarSet','_id');
+        dispatch(setLogout());
         Navigate('/');
 
         toast.success('Logged Out Successfully.', {

@@ -37,7 +37,11 @@ export const authslice = createSlice ({
         },
         setLogout : (state,action) => {
             state.user = null;
-            state.token = null
+            state.token = null;
+            state.allChats = null;
+            state.chat = null;
+            state.owner = null;
+            state.allUsers = [];
         }
     }
 })
