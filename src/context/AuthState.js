@@ -6,7 +6,7 @@ import { setLogin , setAllUsers , setOwner, setAllChats } from "../state";
 
 const AuthState = (props) => {
 
-    const url = "http://localhost:5000";
+    const url = "https://chatapp-xxrn.onrender.com";
     const dispatch = useDispatch();
     const [specificPosts,setSpecificPosts]=useState([]);
     const [specificDetails,setSpecificDetails]=useState([]);
