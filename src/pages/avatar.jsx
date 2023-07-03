@@ -18,7 +18,6 @@ const Register = () => {
 
 
     useEffect(() => {
-        console.log("stateee",user)
         if(user)
         {
             const data = [];
@@ -39,7 +38,6 @@ const Register = () => {
 
     const clickHandler = async (event) => {
         event.preventDefault();
-        console.log(event.target.src);
        
             const selectedAvatar = event.target.src;
             event.target.classList.add('scale-110')
@@ -51,7 +49,6 @@ const Register = () => {
             });
             setClick(false);  
 
-            console.log("s",selectedAvatar)
             await (setAvatar(user.userName,selectedAvatar));
             setTimeout(()=> {
                 Navigate('/chat');
@@ -83,4 +80,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Register;
