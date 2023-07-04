@@ -10,6 +10,7 @@ import Robot from '../assets/robot.gif';
 import { io } from "socket.io-client";
 import { setAllChats, setLogout } from '../state';
 import './styles.css';
+import Spinner from './Spinner';
 
 const ChatContainer = () => {
     const { addMessage , getMessages } = useContext(AuthContext);
@@ -23,6 +24,7 @@ const ChatContainer = () => {
     const [chat, setChat] = useState('');
     const socket = useRef();
     const dispatch = useDispatch();
+    const loading = useSelector((state) => state.user.loading);
 
     const onChangeHandler = (event) => {
         setChat(event.target.value);
@@ -113,12 +115,10 @@ const ChatContainer = () => {
   return (
     <div>
         <div className='text-white w-full h-full'>
-            <div className='fixed w-3/4 flex h-16 items-center border-b'>
+            <div className='flex h-1/5'>
                 {friend?<div className='text-white flex pl-4 md:pl-8 py-1 '>
                     <img className='w-12 h-12 rounded-full p-1' src={friend.avatarPicture} alt='avatar'/>
-                    <div className='flex justify-start items-center w-full font-bold text-lg capitalize mx-2 md:mx-4'>
-                      {friend?friend.userName:""}
-                    </div>
+                    <div className='flex justify-start items-center w-full font-bold text-lg capitalize mx-2 md:mx-4'>{friend?friend.userName:""}</div>
                 </div>:""}
                 <div className='flex justify-center absolute right-0 md:right-12 w-16 items-center p-3 font-semibold text-red-600 md:text-red-800 hover:text-red-600
                  cursor-pointer' onClick={logOutHandler}>
@@ -127,22 +127,29 @@ const ChatContainer = () => {
                     </span>
                 </div>
             </div>
-            <hr/>
+            {friend?<hr/>:""}
             
             
-            <div className={"relative top-16 " + (friend?"container":"h-96 overflow-y-hidden mt-16")}>
+            
+            <div className={" " + (friend?"container":"h-96 overflow-y-hidden mt-16")}>
                 {allChats && friend? 
+                loading?
+                  <div className='flex h-96 md:h-80 justify-center items-center'><Spinner/></div>:
                 allChats.map((chatInd,index)=>
                 chatInd.fromSelf
                 ?
-                <div className='text-white flex justify-end ' ref={scrollRef} key={uuidv4()}>
-                    <div className='bg-blue-900 py-1 md:py-2 px-3 md:px-4 flex justify-center items-center rounded-md md:rounded-lg my-2 md:my-1 mr-3 md:mr-4'>{chatInd.message}</div></div>
+                <div className='text-white flex justify-end' ref={scrollRef} key={uuidv4()} >
+                    <div className='bg-blue-900 py-1 md:py-2 px-3 md:px-4 flex justify-center items-center rounded-md md:rounded-lg my-2 md:my-1 mr-3 md:mr-4'>{chatInd.message}
+                    </div>
+                </div>
                 :
                 <div className='text-white flex justify-start ' ref={scrollRef} key={uuidv4()}><div className='bg-violet-900  py-1 md:py-2 px-3 md:px-4 flex justify-center items-center rounded-md md:rounded-lg my-2 md:my-1 ml-3 md:ml-4'>{chatInd.message}</div></div>
                 )
                 :
                 <div className='flex h-full justify-center items-center text-white m-8'><img src={Robot} alt='Robot'/></div>}
-              </div>
+            </div>
+            
+            
 
             {friend?<form onSubmit={submitHandler} className='absolute bottom-4 md:bottom-16 w-3/4 md:w-full flex items-center py-1 pl-2 md:pl-16'>
                 <div className='p-1 text-2xl cursor-pointer' onClick={showEmojisFunc}>😆</div>
@@ -158,7 +165,7 @@ const ChatContainer = () => {
                 </div>
                 
             </form>:""}
-            {showEmojis?<div className='absolute bottom-20 md:bottom-4 left-4 md:left-36 '>
+            {showEmojis?<div className='fixed bottom-20 md:bottom-4 left-4 md:left-36 '>
                 <EmojiPicker width={250} height={350} 
                 onEmojiClick={(emojiObject)=> setChat((prevMsg)=> prevMsg + emojiObject.emoji)}/>
             </div>:""}

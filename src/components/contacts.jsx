@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import AuthContext from "../context/AuthContext";
 import { useDispatch, useSelector } from 'react-redux';
-import { setChat } from "../state";
+import { setChat, setLoading } from "../state";
 
 
 const Contacts = () => {
@@ -9,6 +9,7 @@ const Contacts = () => {
   const { getAllUsers , getOwner , getMessages} = useContext(AuthContext);
   const usersAll = useSelector((state) => state.user.allUsers);
   const owner = useSelector((state) => state.user.owner);
+  
   const dispatch = useDispatch();
   
 
@@ -22,14 +23,17 @@ const Contacts = () => {
   },[]);
 
   const clickHandler = async (e) => {
-    e.target.classList.add='bg-blue-700'
+    dispatch(setLoading(true));
     console.log("hiii")
     console.log(e.target)
     e.preventDefault();
     const element=e.target.id;
     dispatch(setChat(usersAll[element]));
     if(element)
-      await getMessages(localStorage.getItem('_id'),usersAll[element]._id);
+    {
+      const x = await getMessages(localStorage.getItem('_id'),usersAll[element]._id);
+      if(x === 200)dispatch(setLoading(false));
+    }
   }
 
   return (

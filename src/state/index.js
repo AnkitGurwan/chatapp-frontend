@@ -7,6 +7,7 @@ const initialState = {
     token : null,
     chat : null,
     allChats : null,
+    loading : true,
 }
 
 export const authslice = createSlice ({
@@ -16,6 +17,9 @@ export const authslice = createSlice ({
         setLogin : (state,action) => {
             state.user = action.payload.user;
             state.token =action.payload.token || null;
+        },
+        setLoading : (state,action) => {
+            state.loading = action.payload;
         },
         setOwner : (state,action) => {
             state.owner = action.payload;
@@ -46,5 +50,5 @@ export const authslice = createSlice ({
     }
 })
 
-export const {  setLogin , setLogout ,setAllUsers,setOwner,setChat,setAllChats} = authslice.actions;
+export const {  setLogin , setLogout ,setAllUsers,setOwner,setChat,setAllChats,setLoading} = authslice.actions;
 export default authslice.reducer;

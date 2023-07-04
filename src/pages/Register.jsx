@@ -10,6 +10,7 @@ const Register = () => {
   const { registerUser } = useContext(AuthContext);
   const Navigate = useNavigate();
   const [effect, setEffect] = useState(false);
+  const [passwordMatch,setPasswordMatch] = useState(false);
   const [user, setUser] = useState({
     userName: "",
     email: "",
@@ -21,9 +22,38 @@ const Register = () => {
     setUser({ ...user, [event.target.name]: event.target.value });
   }
 
-  const registerSubmitHandler = async (event) => {
-    setEffect(true);
+  const validate_password = (event) => {
     event.preventDefault();
+
+    if(user.password.length > 0 && user.confirmPassword.length > 0 && user.password != user.confirmPassword)
+    {
+      setPasswordMatch(true);
+    }
+    else setPasswordMatch(false);
+  }
+
+  const registerSubmitHandler = async (event) => {
+    event.preventDefault();
+
+    //check password length
+    if(user.password.length < 8)
+    {
+      toast.error('Password must contain atleast 8 characters.', {
+        position: toast.POSITION.TOP_CENTER
+      });
+      return 0;
+    }
+
+    if(user.password != user.confirmPassword)
+    {
+      toast.error('Both passwords does not Match.', {
+        position: toast.POSITION.TOP_CENTER
+      });
+      return 0;
+    }
+
+    setEffect(true);
+    
     const x = await registerUser(user.userName,user.email,user.password,user.confirmPassword);
   
     if(x === 201){
@@ -62,7 +92,7 @@ const Register = () => {
             <div className='text-3xl font-bold'>Snappy</div>
           </div>
         </div>
-        <form className='bg-gray-900 py-3' onSubmit={registerSubmitHandler}>
+        <form className='bg-gray-900 py-2' onSubmit={registerSubmitHandler}>
           <div className='py-2 w-full'>
             <input type='text' className='w-full h-10 px-3 rounded-md text-sm text-white capitalize outline-0 bg-gray-800 border-2 border-blue-600' autoFocus required autoComplete='off' name='userName' placeholder='Username' value={user.userName} onChange={onChangeHandler}/>
           </div>
@@ -70,10 +100,11 @@ const Register = () => {
             <input type='email' className='w-full h-10 px-3 rounded-md text-sm text-white outline-0 bg-gray-800 border-2 border-blue-600' required name='email' placeholder='Email' value={user.email} onChange={onChangeHandler}/>
           </div>
           <div className='py-2'>
-            <input type='password' className='w-full h-10 px-3 rounded-md text-sm text-white outline-0 bg-gray-800 border-2 border-blue-600' required name='password' placeholder='Password' value={user.password} onChange={onChangeHandler}/>
+            <input type='password' onKeyUp={validate_password} className='w-full h-10 px-3 rounded-md text-sm text-white outline-0 bg-gray-800 border-2 border-blue-600' required name='password' placeholder='Password' value={user.password} onChange={onChangeHandler}/>
           </div>
           <div className='py-2'>
-            <input type='password' className='w-full h-10 px-3 rounded-md text-sm text-white outline-0 bg-gray-800 border-2 border-blue-600' required name='confirmPassword' value={user.confirmPassword} placeholder='Confirm Password' onChange={onChangeHandler}/>
+            <input type='password' onKeyUp={validate_password} className='w-full h-10 px-3 rounded-md text-sm text-white outline-0 bg-gray-800 border-2 border-blue-600' required name='confirmPassword' value={user.confirmPassword} placeholder='Confirm Password' onChange={onChangeHandler}/>
+            {passwordMatch?<div className='text-red-400 p-1 text-sm'>Password does not Match</div>:<div className='text-gray-900 p-1 text-sm'>Password does not Match</div>}
           </div>
           {effect?<div className='flex justify-center items-center mt-4 mb-1 h-10 rounded-md bg-violet-600'><Spinner/><div className='text-white mx-2'>Loading..</div></div>:<button type='submit' className='bg-violet-600 text-white w-full rounded-sm h-10 mt-4 mb-1 text-center text-md font-bold'>Register</button>}
         </form>
