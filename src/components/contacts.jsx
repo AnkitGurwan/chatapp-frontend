@@ -22,6 +22,9 @@ const Contacts = () => {
   },[]);
 
   const clickHandler = async (e) => {
+    e.target.classList.add='bg-blue-700'
+    console.log("hiii")
+    console.log(e.target)
     e.preventDefault();
     const element=e.target.id;
     dispatch(setChat(usersAll[element]));
@@ -34,10 +37,10 @@ const Contacts = () => {
 
       <div className='overflow-y-scroll h-96 md:h-72'>
         {usersAll.map((user,index)=>
-        <div id={index} key={index} onClick={clickHandler}>
-          <div className='text-white flex flex-col md:flex-row mx-2 mb-2 p-2 md:p-3 bg-gray-500 cursor-pointer hover:bg-gray-600' >
-              <img  className='flex justify-center mx-auto w-10 h-10 rounded-full' src={user.avatarPicture} alt='avatar'/>
-              <div className='flex justify-center md:justify-start items-center w-full text-center mt-2 md:mt-0 leading-4 font-medium md:font-semibold text-sm md:text-lg capitalize ml-0 md:ml-4'>{user.userName}</div>
+        <div onClick={clickHandler}>
+          <div id={index} className='text-white flex flex-col md:flex-row mx-2 mb-2 p-2 md:p-3 bg-gray-500 cursor-pointer hover:bg-gray-700 md:hover:bg-gray-600' >
+              <img id={index}  className='flex justify-center mx-auto w-10 h-10 rounded-full' src={user.avatarPicture} alt='avatar'/>
+              <div id={index} className='flex justify-center md:justify-start items-center w-full text-center mt-2 md:mt-0 leading-4 font-medium md:font-semibold text-sm md:text-lg capitalize ml-0 md:ml-4'>{user.userName}</div>
           </div> 
         </div>     
         )}

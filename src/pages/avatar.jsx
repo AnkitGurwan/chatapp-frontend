@@ -52,7 +52,7 @@ const Register = () => {
             await (setAvatar(user.userName,selectedAvatar));
             setTimeout(()=> {
                 Navigate('/chat');
-            }, 2000); 
+            }, 1000); 
     }
 
     const clic2 = () =>{}

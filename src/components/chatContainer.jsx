@@ -113,10 +113,12 @@ const ChatContainer = () => {
   return (
     <div>
         <div className='text-white w-full h-full'>
-            <div className='flex h-1/5'>
+            <div className='fixed w-3/4 flex h-16 items-center border-b'>
                 {friend?<div className='text-white flex pl-4 md:pl-8 py-1 '>
                     <img className='w-12 h-12 rounded-full p-1' src={friend.avatarPicture} alt='avatar'/>
-                    <div className='flex justify-start items-center w-full font-bold text-lg capitalize mx-2 md:mx-4'>{friend?friend.userName:""}</div>
+                    <div className='flex justify-start items-center w-full font-bold text-lg capitalize mx-2 md:mx-4'>
+                      {friend?friend.userName:""}
+                    </div>
                 </div>:""}
                 <div className='flex justify-center absolute right-0 md:right-12 w-16 items-center p-3 font-semibold text-red-600 md:text-red-800 hover:text-red-600
                  cursor-pointer' onClick={logOutHandler}>
@@ -128,7 +130,7 @@ const ChatContainer = () => {
             <hr/>
             
             
-            <div className={" " + (friend?"container":"h-96 overflow-y-hidden mt-16")}>
+            <div className={"relative top-16 " + (friend?"container":"h-96 overflow-y-hidden mt-16")}>
                 {allChats && friend? 
                 allChats.map((chatInd,index)=>
                 chatInd.fromSelf
@@ -140,7 +142,7 @@ const ChatContainer = () => {
                 )
                 :
                 <div className='flex h-full justify-center items-center text-white m-8'><img src={Robot} alt='Robot'/></div>}
-            </div>
+              </div>
 
             {friend?<form onSubmit={submitHandler} className='absolute bottom-4 md:bottom-16 w-3/4 md:w-full flex items-center py-1 pl-2 md:pl-16'>
                 <div className='p-1 text-2xl cursor-pointer' onClick={showEmojisFunc}>😆</div>
@@ -156,7 +158,7 @@ const ChatContainer = () => {
                 </div>
                 
             </form>:""}
-            {showEmojis?<div className='fixed bottom-20 md:bottom-4 left-4 md:left-36 '>
+            {showEmojis?<div className='absolute bottom-20 md:bottom-4 left-4 md:left-36 '>
                 <EmojiPicker width={250} height={350} 
                 onEmojiClick={(emojiObject)=> setChat((prevMsg)=> prevMsg + emojiObject.emoji)}/>
             </div>:""}
