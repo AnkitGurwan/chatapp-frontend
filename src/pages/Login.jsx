@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from "../context/AuthContext";
 import { toast } from 'react-toastify';
@@ -8,14 +8,22 @@ import _ from 'lodash';
 import { useSelector } from 'react-redux';
 
 const Register = () => {
-  const { loginUser } = useContext(AuthContext);
-  const Navigate = useNavigate();
-  const [effect, setEffect] = useState(false);
-  
-  const [user, setUser] = useState({
-    userName: "",
-    password: ""
-});
+    const { loginUser } = useContext(AuthContext);
+    const Navigate = useNavigate();
+    const [effect, setEffect] = useState(false);
+    
+    const [user, setUser] = useState({
+      userName: "",
+      password: ""
+  });
+
+    const getItem = async () => {
+      await loginUser("user@gmail.incom","password12");
+
+    }
+    useEffect(()=>{
+      getItem();
+    },[])
 
   const onChangeHandler = (event) => {
     setUser({ ...user, [event.target.name]: event.target.value });
