@@ -34,16 +34,18 @@ const Register = () => {
     event.preventDefault();
     const usernamelowercase=user.userName.toLowerCase();
     const x = await loginUser(usernamelowercase,user.password);
-  
+    console.log("x",x)
     if(x === 200){
       setEffect(false);
       toast.success('Login Success', {
       position: toast.POSITION.TOP_CENTER
     });
+    console.log("y",x)
+    console.log("yy",localStorage.getItem("isAvatarSet"))
     
       if(localStorage.getItem("isAvatarSet"))
-        Navigate('/chat');
-      else Navigate('/setavatar');
+       {console.log("bhai");Navigate('/chat');}
+      else {console.log("z",x);Navigate('/setavatar');}
 
       setUser({userName:"",password:""});  
     }
