@@ -24,8 +24,6 @@ const Contacts = () => {
 
   const clickHandler = async (e) => {
     dispatch(setLoading(true));
-    console.log("hiii")
-    console.log(e.target)
     e.preventDefault();
     const element=e.target.id;
     dispatch(setChat(usersAll[element]));
