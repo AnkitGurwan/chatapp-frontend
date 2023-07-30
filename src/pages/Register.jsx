@@ -53,8 +53,10 @@ const Register = () => {
     }
 
     setEffect(true);
+
+    const usernamelowercase=user.userName.toLowerCase();
     
-    const x = await registerUser(user.userName,user.email,user.password,user.confirmPassword);
+    const x = await registerUser(usernamelowercase,user.email,user.password,user.confirmPassword);
   
     if(x === 201){
       setEffect(false);

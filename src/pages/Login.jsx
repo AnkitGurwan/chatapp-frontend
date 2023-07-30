@@ -32,7 +32,8 @@ const Register = () => {
   const loginSubmitHandler = async (event) => {
     setEffect(true);
     event.preventDefault();
-    const x = await loginUser(_(user.userName),user.password);
+    const usernamelowercase=user.userName.toLowerCase();
+    const x = await loginUser(usernamelowercase,user.password);
   
     if(x === 200){
       setEffect(false);
