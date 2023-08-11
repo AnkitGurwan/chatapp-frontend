@@ -39,7 +39,7 @@ const Register = () => {
       
       const check=localStorage.getItem("isAvatarSet");
   
-      if(check===true)
+      if(check === 'true')
       {
           toast.success('Login Success', {
             position: toast.POSITION.TOP_CENTER
