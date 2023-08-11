@@ -38,6 +38,7 @@ const Register = () => {
       setEffect(false);
       
       const check=localStorage.getItem("isAvatarSet");
+      console.log(check)
   
       if(check === 'true')
       {
